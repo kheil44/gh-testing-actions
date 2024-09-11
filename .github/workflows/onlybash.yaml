@@ -1,34 +1,27 @@
-name: Node.js CI showcasing var and secrets
-on: [push, workflow_dispatch]
-env:
-  GLOBAL_VAR: 'This is a global variable'
+name: Environment Variable and Secret Demo
 
+on: [push, workflow_dispatch]
 jobs:
-  build:
+  demo:
     runs-on: ubuntu-latest
 
     env:
-      JOB_VAR: 'This is a job-specific variable'
-      NODE_ENV: 'production'
+      GLOBAL_VAR: 'This is a global variable'
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '14'
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run build
-        run: npm run build
-
       - name: Print environment variables
         run: |
           echo "Global Variable: $GLOBAL_VAR"
+          echo "Job Variable: $JOB_VAR"
+          echo "Node Environment: $NODE_ENV"
+
+      - name: Set and print job-specific variable
+        run: |
+          JOB_VAR='This is a job-specific variable'
+          NODE_ENV='production'
           echo "Job Variable: $JOB_VAR"
           echo "Node Environment: $NODE_ENV"
 
