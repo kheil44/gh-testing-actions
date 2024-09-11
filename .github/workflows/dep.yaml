@@ -1,0 +1,43 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+env:
+  GLOBAL_VAR: 'This is a global variable'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      JOB_VAR: 'This is a job-specific variable'
+      NODE_ENV: 'production'  # Example of setting an environment variable for the job
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run build
+        run: npm run build
+
+      - name: Print environment variables
+        run: |
+          echo "Global Variable: $GLOBAL_VAR"
+          echo "Job Variable: $JOB_VAR"
+          echo "Node Environment: $NODE_ENV"
+
+      - name: Use secret
+        env:
+          SECRET_API_KEY: ${{ secrets.SECRET_API_KEY }}  # Accessing a secret
+        run: |
+          echo "Using secret API key: $SECRET_API_KEY"
