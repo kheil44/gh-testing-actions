@@ -4,7 +4,7 @@ on: [push, workflow_dispatch]
 jobs:
   using_bash_diff_enviroment:
     runs-on: ubuntu-latest
-    environment: test
+    environment: dev
 
     env:
       GLOBAL_VAR: 'This is a global variable'
