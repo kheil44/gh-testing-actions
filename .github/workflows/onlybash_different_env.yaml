@@ -1,4 +1,4 @@
-name: Environment test and sec and var
+name: Environment test and sec and var2
 
 on: [push, workflow_dispatch]
 jobs:
